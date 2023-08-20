@@ -1,0 +1,9 @@
+USE vollmed_api;
+
+alter table medicos add ativo tinyint not null;
+
+START TRANSACTION;
+
+update medicos set ativo = 1;
+
+commit;
