@@ -19,13 +19,19 @@ public class MedicoService {
 		return repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedico::new);
 	}
 	
-	public void atualizar(DadosAtualizacaoMedico dados) {
+	public Medico atualizar(DadosAtualizacaoMedico dados) {
 		Medico medico = repository.getReferenceById(dados.id());
 		medico.atualizarInformacoes(dados);
+		return medico;
 	}
 	
 	public void excluir(Long id) {
 		Medico medico = repository.getReferenceById(id);
 		medico.excluir();
+	}
+	
+	public Medico detalhar(Long id) {
+		Medico medico = repository.getReferenceById(id);
+		return medico;
 	}
 }
