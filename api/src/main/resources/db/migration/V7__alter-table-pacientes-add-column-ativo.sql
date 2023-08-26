@@ -1,6 +1,6 @@
 USE vollmed_api;
 
-alter table pacientes add ativo tinyint not null;
+alter table pacientes add ativo tinyint;
 
 START TRANSACTION;
 
