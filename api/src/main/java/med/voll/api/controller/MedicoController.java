@@ -29,41 +29,52 @@ import med.voll.api.domain.medico.MedicoService;
 @RestController
 @RequestMapping("/medicos")
 public class MedicoController {
-	
+
 	@Autowired
 	MedicoService repository;
-	
+
 	@PostMapping
 	@Transactional
-	public ResponseEntity<DadosDetalhamentoMedico> Cadastrar(@RequestBody @Valid DadosCadastroMedico dados, UriComponentsBuilder uriBuilder) {
-		Medico medico = repository.salvar(dados); 
+	public ResponseEntity<DadosDetalhamentoMedico> Cadastrar(@RequestBody @Valid DadosCadastroMedico dados,
+			UriComponentsBuilder uriBuilder) {
+		Medico medico = repository.salvar(dados);
 		URI uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
 		return ResponseEntity.created(uri).body(new DadosDetalhamentoMedico(medico));
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<Page<DadosListagemMedico>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
-		Page<DadosListagemMedico> page =  repository.listar(paginacao);
+	public ResponseEntity<Page<DadosListagemMedico>> listar(
+			@PageableDefault(size = 10, sort = { "nome" }) Pageable paginacao) {
+		Page<DadosListagemMedico> page = repository.listar(paginacao);
 		return ResponseEntity.ok(page);
 	}
-	
+
 	@PutMapping
 	@Transactional
 	public ResponseEntity<DadosDetalhamentoMedico> atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados) {
 		Medico medico = repository.atualizar(dados);
 		return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
 	}
-	
+
 	@DeleteMapping("/{id}")
 	@Transactional
 	public ResponseEntity<?> excluir(@PathVariable Long id) {
 		repository.excluir(id);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<DadosDetalhamentoMedico> detalhar(@PathVariable Long id) {
 		Medico medico = repository.detalhar(id);
 		return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
 	}
+
+	/*
+	 * @GetMapping("/{id}")
+	 * 
+	 * @Secured("ROLE_ADMIN") public ResponseEntity detalhar(@PathVariable Long id)
+	 * { var medico = repository.getReferenceById(id); return ResponseEntity.ok(new
+	 * DadosDetalhamentoMedico(medico)); }
+	 * 
+	 */
 }

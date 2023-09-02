@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class MedicoService {
 	
 	@Autowired
-	MedicoRepository repository;
+	private MedicoRepository repository;
 	
 	public Medico salvar(DadosCadastroMedico dados) {
 		return repository.save(new Medico(dados));
