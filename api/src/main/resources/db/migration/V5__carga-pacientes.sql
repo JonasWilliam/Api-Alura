@@ -1,5 +1,3 @@
-USE vollmed_api;
-
 START TRANSACTION;
 
 INSERT INTO pacientes (nome, email, cpf, telefone, logradouro, bairro, cep, complemento, numero, uf, cidade)

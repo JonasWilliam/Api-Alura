@@ -1,5 +1,3 @@
-USE vollmed_api;
-
 START TRANSACTION;
 
 INSERT INTO medicos (nome, email, crm, especialidade, logradouro, bairro, cep, complemento, numero, uf, cidade, telefone)
